@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -70,12 +71,12 @@ export default function TaskBoardPage() {
 
       <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-x-auto pb-4">
         {columnOrder.map(statusKey => {
-            const statusValue = TASK_STATUSES[statusKey.toUpperCase() as keyof typeof TASK_STATUSES] as TaskStatus;
+            // statusKey is already the correct value (e.g., 'todo', 'inprogress', 'done')
             return (
                  <KanbanColumn
-                    key={statusValue}
-                    title={statusValue.replace('_', ' ')}
-                    status={statusValue}
+                    key={statusKey}
+                    title={statusKey.replace('_', ' ')}
+                    status={statusKey}
                     tasks={tasks}
                     onEditTask={handleOpenDialog}
                     onDeleteTask={handleDeleteTask}
