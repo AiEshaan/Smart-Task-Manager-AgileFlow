@@ -10,6 +10,12 @@ import type { Task, TaskStatus } from '@/types';
 import { MOCK_TASKS } from '@/data/mock';
 import { TASK_STATUSES } from '@/lib/constants';
 
+const statusDisplayNames: Record<TaskStatus, string> = {
+  [TASK_STATUSES.TODO]: "To Do",
+  [TASK_STATUSES.IN_PROGRESS]: "In Progress",
+  [TASK_STATUSES.DONE]: "Done",
+};
+
 export default function TaskBoardPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -71,11 +77,10 @@ export default function TaskBoardPage() {
 
       <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-x-auto pb-4">
         {columnOrder.map(statusKey => {
-            // statusKey is already the correct value (e.g., 'todo', 'inprogress', 'done')
             return (
                  <KanbanColumn
                     key={statusKey}
-                    title={statusKey.replace('_', ' ')}
+                    title={statusDisplayNames[statusKey] || statusKey.replace('_', ' ')}
                     status={statusKey}
                     tasks={tasks}
                     onEditTask={handleOpenDialog}
